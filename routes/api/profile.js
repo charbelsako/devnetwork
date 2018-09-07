@@ -7,6 +7,8 @@ const passport = require('passport')
 const Profile = require('../../models/Profile')
 // Load User Model
 const User = require('../../models/User')
+// Load Validation
+const validateProfileInput = require('../../validation/profile')
 
 /* @route  /api/profile/test
    @method GET
@@ -28,6 +30,7 @@ router.get(
     const errors = {}
 
     Profile.findOne({ user: req.user.id })
+      .populate('user', ['name', 'avatar'])
       .then(profile => {
         if (!profile) {
           errors.noprofile = 'There is no profile for this user'
@@ -49,6 +52,14 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    const { errors, isValid } = validateProfileInput(req.body)
+
+    // Validation Check
+    if (!isValid) {
+      // Return the errors
+      return res.status(400).json(errors)
+    }
+
     // Get fields
     const profileFields = {}
     profileFields.user = req.user.id
@@ -65,6 +76,7 @@ router.post(
     // Skills - split into array
     if (typeof req.body.skills !== undefined) {
       profileFields.skills = req.body.skills.split(',')
+      profileFields.skills = profileFields.skills.map(x => x.trim())
     }
 
     //Social network links
@@ -75,32 +87,30 @@ router.post(
     if (req.body.facebook) profileFields.social.facebook = req.body.facebook
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram
 
-    Profile.findOne({ user: req.user.id })
-      .then(profile => {
-        if (profile) {
-          // Update
-          //This is different than the tutorial
-          //return the function to chain .then
-          return Profile.findOneAndUpdate(
-            { user: req.user.id },
-            { $set: profileFields },
-            { new: true },
-          )
-        } else {
-          // Create
-          //Check if handle already exists
-          Profile.findOne({ handle: profileFields.handle }).then(profile => {
-            if (profile) {
-              //It does
-              errors.handle = 'That handle already exists'
-              res.status(400).json(errors)
-            }
-            // Save profile
-            new Profile(profileFields).save().then(profile => res.json(profile))
-          })
-        }
-      })
-      .then(profile => res.json(profile))
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      if (profile) {
+        // Update
+        //This is different than the tutorial
+        //return the function to chain .then
+        Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileFields },
+          { new: true },
+        ).then(profile => res.json(profile))
+      } else {
+        // Create
+        //Check if handle already exists
+        Profile.findOne({ handle: profileFields.handle }).then(profile => {
+          if (profile) {
+            //It does
+            errors.handle = 'That handle already exists'
+            res.status(400).json(errors)
+          }
+          // Save profile
+          new Profile(profileFields).save().then(profile => res.json(profile))
+        })
+      }
+    })
   },
 )
 
