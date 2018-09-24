@@ -11,6 +11,7 @@ import Landing from './components/layout/Landing'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Dashboard from './components/dashboard/Dashboard'
+import CreateProfile from './components/create-profile/CreateProfile'
 
 // Redux
 import { Provider } from 'react-redux'
@@ -54,6 +55,11 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute
+                exact
+                path="/create-profile"
+                component={CreateProfile}
+              />
             </div>
             <Footer />
           </div>
