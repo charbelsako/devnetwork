@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
-import TextFieldGroup from '../common/TextField'
-
+// Custom Components
+import TextFieldGroup from '../common/TextFieldGroup'
+// Routing
 import { withRouter } from 'react-router-dom'
-
-//Redux
+// Redux
 import { connect } from 'react-redux'
 import { registerUser } from '../../actions/authActions'
 

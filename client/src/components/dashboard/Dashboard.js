@@ -64,6 +64,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
 })
 
+// No withRouter check PrivateRoute.js
 export default connect(
   mapStateToProps,
   { getCurrentProfile }
