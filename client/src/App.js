@@ -12,6 +12,9 @@ import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Dashboard from './components/dashboard/Dashboard'
 import CreateProfile from './components/create-profile/CreateProfile'
+import EditProfile from './components/edit-profile/EditProfile'
+import AddExperience from './components/add-credentials/AddExperience'
+import AddEducation from './components/add-credentials/AddEducation'
 
 // Redux
 import { Provider } from 'react-redux'
@@ -32,7 +35,7 @@ if (localStorage.jwtToken) {
   store.dispatch(setCurrentUser(decoded))
 
   // Check for expired token
-  const currentTime = Date.now / 1000
+  const currentTime = Date.now() / 1000
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser())
     // Clear current profile
@@ -59,6 +62,21 @@ class App extends Component {
                 exact
                 path="/create-profile"
                 component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path="/edit-profile"
+                component={EditProfile}
+              />
+              <PrivateRoute
+                exact
+                path="/add-experience"
+                component={AddExperience}
+              />
+              <PrivateRoute
+                exact
+                path="/add-education"
+                component={AddEducation}
               />
             </div>
             <Footer />

@@ -10,6 +10,12 @@ class Landing extends Component {
     auth: PropTypes.object.isRequired,
   }
 
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard')
+    }
+  }
+
   render() {
     return (
       <div className="landing">
