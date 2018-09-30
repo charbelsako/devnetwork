@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom'
 import isEmpty from '../../validation/is-empty'
 
 class ProfileItem extends Component {
+  static propTypes = {
+    profile: PropTypes.object.isRequired,
+  }
+
   render() {
     const { profile } = this.props
     return (
