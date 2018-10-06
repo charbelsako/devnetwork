@@ -25,6 +25,9 @@ import store from './store'
 // Routing
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import PrivateRoute from './components/common/PrivateRoute'
+import NotFound from './components/not-found/NotFound'
+import Posts from './components/posts/Posts'
+import Post from './components/post/Post'
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -82,6 +85,9 @@ class App extends Component {
                 path="/add-education"
                 component={AddEducation}
               />
+              <PrivateRoute exact path="/feed" component={Posts} />
+              <PrivateRoute exact path="/post/:id" component={Post} />
+              <Route exact path="/not-found" component={NotFound} />
             </div>
             <Footer />
           </div>

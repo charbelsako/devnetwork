@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getProfileByHandle } from '../../actions/profileActions'
 import ProfileAbout from './ProfileAbout'
@@ -16,9 +16,21 @@ class Profile extends Component {
   componentDidMount() {
     const { handle } = this.props.match.params
     if (handle) {
-      this.props.getProfileByHandle(handle)
+      this.props.getProfileByHandle(handle, this.props.history)
     }
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.profile.profile === null && !this.props.profile.loading) {
+  //     this.props.history.push('/not-found')
+  //   }
+  // }
+
+  // componentDidUpdate() {
+  //   this.props.profile.profile === null &&
+  //     !this.props.profile.loading &&
+  //     this.props.history.push('/not-found')
+  // }
 
   render() {
     const { profile, loading } = this.props.profile
@@ -57,4 +69,4 @@ export default connect(
     profile: state.profile,
   }),
   { getProfileByHandle }
-)(Profile)
+)(withRouter(Profile))
