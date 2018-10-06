@@ -278,19 +278,11 @@ router.delete(
         let remove_index = profile.experience
           .map(item => item.id)
           .indexOf(req.params.exp_id)
-        if (remove_index !== -1) {
-          // Splice out of array
-          profile.experience.splice(remove_index, 1)
 
-          // Save
-          profile
-            .save()
-            .then(profile => res.json(profile))
-            .catch(err => res.status(500).json(errors))
-        } else {
-          errors.noeducation = 'Education does not exist'
-          res.status(404).json(errors)
-        }
+        // Splice out of array
+        profile.experience.splice(remove_index, 1)
+        // Save
+        profile.save().then(profile => res.json(profile))
       })
       .catch(err => res.status(404).json({ err }))
   }
