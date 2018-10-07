@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A web app/ potential mobile app for programmer profiles",
   "main": "server.js",
+  "engines": {
+    "node": "10.1.0"
+  },
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
@@ -17,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "gravatar": "^1.6.0",
     "jsonwebtoken": "^8.3.0",
