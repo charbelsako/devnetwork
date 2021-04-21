@@ -78,8 +78,11 @@ class Dashboard extends Component {
           <p>
             Welcome {user.name}! ({user.type})
           </p>
-          <Link to="/create-ad" className="text-white">
-            <button className="btn btn-info">Create Ad</button>
+          <Link to="/create-ad" className="m-1 text-white btn btn-info">
+            Create Ad
+          </Link>
+          <Link to="/myads" className="btn btn-info m-1">
+            My Ads
           </Link>
         </div>
       );

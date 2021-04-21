@@ -36,7 +36,7 @@ router.post("/", passport.authenticate("jwt", { session: false }), async (req, r
 router.get("/", passport.authenticate("jwt", { session: false }), async (req, res) => {
   // Get all ads
   try {
-    const ads = await Ads.find();
+    const ads = await Ads.find().populate("user", ["name"]);
     console.log(ads);
     res.json(ads).status(200);
   } catch (e) {

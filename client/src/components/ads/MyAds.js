@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUserAds } from "../../actions/adActions";
+import { getUserAds, deleteAd } from "../../actions/adActions";
 
 export class MyAds extends Component {
   constructor(props) {
@@ -8,17 +8,26 @@ export class MyAds extends Component {
     this.props.getUserAds();
   }
 
+  delete = id => {
+    return () => {
+      this.props.deleteAd(id);
+    };
+  };
+
   render() {
     if (this.props.ads.loading) {
       return <p>Loading</p>;
     } else {
       return (
         <div>
-          {this.props.ads.ads.map(ad => (
-            <div class="m-5">
+          {this.props.ads.ads.map((ad, index) => (
+            <div className="m-5" key={index}>
               <h3>{ad.title}</h3>
               <p>{ad.description}</p>
-              <p class="text-grey">Salary: {ad.salary ? ad.salary : "N/A"}</p>
+              <p className="text-grey">Salary: {ad.salary ? ad.salary : "N/A"}</p>
+              <button onClick={this.delete(ad._id)} className="btn btn-danger">
+                Delete Ad
+              </button>
             </div>
           ))}
         </div>
@@ -31,6 +40,6 @@ const mapStateToProps = state => ({
   ads: state.ads,
 });
 
-const mapDispatchToProps = { getUserAds };
+const mapDispatchToProps = { getUserAds, deleteAd };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAds);

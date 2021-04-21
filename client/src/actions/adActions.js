@@ -14,6 +14,7 @@ export const getAllAds = () => async dispatch => {
 };
 
 export const deleteAd = id => async dispatch => {
+  console.log("deleted");
   try {
     const response = axios.delete("/api/ads/" + id);
     dispatch({ type: DELETE_AD, payload: response.data });

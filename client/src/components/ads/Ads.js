@@ -14,11 +14,12 @@ export class Ads extends Component {
     } else {
       return (
         <div>
-          {this.props.ads.ads.map(ad => (
-            <div class="m-5">
+          {this.props.ads.ads.map((ad, index) => (
+            <div className="m-5" key={index}>
               <h3>{ad.title}</h3>
               <p>{ad.description}</p>
-              <p class="text-grey">Salary: {ad.salary ? ad.salary : "N/A"}</p>
+              <p>Posted by: {ad.user.name}</p>
+              <p className="text-grey">Salary: {ad.salary ? ad.salary : "N/A"}</p>
             </div>
           ))}
         </div>

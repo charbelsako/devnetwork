@@ -17,8 +17,9 @@ import EditProfile from "./components/edit-profile/EditProfile";
 import AddExperience from "./components/add-credentials/AddExperience";
 import AddEducation from "./components/add-credentials/AddEducation";
 import Profile from "./components/profile/Profile";
-import Ads from "./components/ads/Ads.js";
-import MyAds from "./components/ads/MyAds.js";
+import Ads from "./components/ads/Ads";
+import MyAds from "./components/ads/MyAds";
+import CreateAd from "./components/ads/CreateAd";
 // Redux
 import { Provider } from "react-redux";
 // Redux store
@@ -67,8 +68,6 @@ class App extends Component {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/profiles" component={Profiles} />
                 <Route path="/profile/:handle" component={Profile} />
-                <PrivateRoute exact path="/ads" component={Ads} />
-                <PrivateRoute exact path="/myads" component={MyAds} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 <PrivateRoute exact path="/create-profile" component={CreateProfile} />
                 <PrivateRoute exact path="/edit-profile" component={EditProfile} />
@@ -77,7 +76,9 @@ class App extends Component {
                 <PrivateRoute exact path="/feed" component={Posts} />
                 <PrivateRoute exact path="/post/:id" component={Post} />
                 {/* TODO: the component will be changed */}
-                <EmployerRoute exact path="/create-ad" component={Dashboard} />
+                <EmployerRoute exact path="/myads" component={MyAds} />
+                <EmployerRoute exact path="/ads" component={Ads} />
+                <EmployerRoute exact path="/create-ad" component={CreateAd} />
                 <Route component={NotFound} />
               </Switch>
             </div>
