@@ -9,7 +9,7 @@ export class CreateAd extends Component {
     title: "",
     description: "",
     salary: 0,
-    errors: {},
+    // errors: {},
     success: false,
   };
 
@@ -34,21 +34,24 @@ export class CreateAd extends Component {
       <form onSubmit={this.createAd}>
         <TextFieldGroup
           label="Title"
+          required={true}
           placeholder="title"
           value={this.state.title}
           onChange={this.onChange}
           name="title"
           type="text"
-          error={this.state.errors.title}
+          error={this.props.errors.title}
         />
 
         <TextAreaFieldGroup
           placeholder="Description"
+          required={true}
           label="Description"
           value={this.state.description}
+          info="Please provide contact information so that people can contact you."
           onChange={this.onChange}
           name="description"
-          error={this.state.errors.description}
+          error={this.props.errors.description}
         />
 
         <TextFieldGroup
@@ -58,7 +61,7 @@ export class CreateAd extends Component {
           onChange={this.onChange}
           name="salary"
           type="number"
-          error={this.state.errors.salary}
+          // error={this..errors.salary}
         />
         <input type="submit" value="Create Ad" className="m-1" />
         {this.state.success && <div className="alert alert-success">Added Advertisement</div>}
@@ -67,6 +70,8 @@ export class CreateAd extends Component {
   }
 }
 
+const mapStateToProps = state => ({ errors: state.errors });
+
 const mapDispatchToProps = { addAd };
 
-export default connect(null, mapDispatchToProps)(CreateAd);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAd);

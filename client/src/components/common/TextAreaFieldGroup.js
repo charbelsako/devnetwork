@@ -2,10 +2,15 @@ import React from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 
-const TextAreaFieldGroups = ({ name, placeholder, value, label, error, info, onChange }) => {
+const TextAreaFieldGroups = ({ name, placeholder, value, label, error, info, onChange, required }) => {
   return (
     <div className="form-group">
-      {label && <label htmlFor={name}>{label}</label>}
+      {label && (
+        <label htmlFor={name}>
+          {label}
+          {required ? <span className="text-danger"> *</span> : ""}
+        </label>
+      )}
       <textarea
         className={classnames("form-control form-control-lg", {
           "is-invalid": error,

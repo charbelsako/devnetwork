@@ -3,6 +3,8 @@ const passport = require("passport");
 
 const User = require("../../models/User");
 const Ad = require("../../models/Ad");
+
+const validateAdInput = require("../../validation/advertisement");
 /*
   @route /api/ads/
   @method POST
@@ -11,7 +13,12 @@ const Ad = require("../../models/Ad");
 */
 // TODO: Create a local strategy for jwt to check if the user is an employer
 router.post("/", passport.authenticate("jwt", { session: false }), async (req, res) => {
-  // TODO: Add validation
+  const { errors, isValid } = validateAdInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   try {
     const ad = new Ads({
       user: req.user.id,
@@ -31,7 +38,7 @@ router.post("/", passport.authenticate("jwt", { session: false }), async (req, r
   @route /api/ads
   @method GET
   @desc return all ads
-  @access private
+  @access private (for now)
 */
 router.get("/", passport.authenticate("jwt", { session: false }), async (req, res) => {
   // Get all ads

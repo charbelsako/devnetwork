@@ -2,10 +2,26 @@ import React from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 
-const TextFieldGroup = ({ name, placeholder, value, label, error, info, type, onChange, disabled }) => {
+const TextFieldGroup = ({
+  name,
+  placeholder,
+  value,
+  label,
+  error,
+  info,
+  type,
+  onChange,
+  disabled,
+  required,
+}) => {
   return (
     <div className="form-group">
-      {label && <label htmlFor={name}>{label}</label>}
+      {label && (
+        <label htmlFor={name}>
+          {label}
+          {required ? <span className="text-danger"> *</span> : ""}
+        </label>
+      )}
       <input
         type={type}
         className={classnames("form-control form-control-lg", {
@@ -26,7 +42,7 @@ const TextFieldGroup = ({ name, placeholder, value, label, error, info, type, on
 TextFieldGroup.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  // value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   info: PropTypes.string,
   error: PropTypes.string,

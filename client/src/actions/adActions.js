@@ -1,6 +1,5 @@
-import { GET_ADS, ADD_AD, DELETE_AD, ADS_LOADING } from "./types";
+import { GET_ADS, ADD_AD, DELETE_AD, ADS_LOADING, GET_ERRORS } from "./types";
 import axios from "axios";
-import { GET_ERRORS } from "./types";
 
 export const getAllAds = () => async dispatch => {
   dispatch({ type: ADS_LOADING, payload: null });
@@ -16,8 +15,9 @@ export const getAllAds = () => async dispatch => {
 export const deleteAd = id => async dispatch => {
   console.log("deleted");
   try {
-    const response = axios.delete("/api/ads/" + id);
-    dispatch({ type: DELETE_AD, payload: response.data });
+    const response = await axios.delete("/api/ads/" + id);
+    console.log(response.data);
+    dispatch({ type: DELETE_AD, payload: response.data.id });
   } catch (e) {
     console.log(e);
   }
@@ -29,6 +29,7 @@ export const addAd = ad => async dispatch => {
     const Ad = await axios.post("/api/ads", ad);
     dispatch({ type: ADD_AD, payload: ad.data });
   } catch (e) {
+    dispatch({ type: GET_ERRORS, payload: e.response.data });
     console.log(e);
   }
 };
