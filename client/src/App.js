@@ -20,6 +20,7 @@ import Profile from "./components/profile/Profile";
 import Ads from "./components/ads/Ads";
 import MyAds from "./components/ads/MyAds";
 import CreateAd from "./components/ads/CreateAd";
+import Users from "./components/admin/Users";
 // Redux
 import { Provider } from "react-redux";
 // Redux store
@@ -32,6 +33,7 @@ import NotFound from "./components/not-found/NotFound";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import EmployerRoute from "./components/common/EmployerRoute";
+import AdminRoute from "./components/common/AdminRoute";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -79,6 +81,7 @@ class App extends Component {
                 <EmployerRoute exact path="/myads" component={MyAds} />
                 <EmployerRoute exact path="/ads" component={Ads} />
                 <EmployerRoute exact path="/create-ad" component={CreateAd} />
+                <AdminRoute exact path="/admin/users" component={Users} />
                 <Route component={NotFound} />
               </Switch>
             </div>

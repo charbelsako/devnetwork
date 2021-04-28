@@ -19,3 +19,7 @@ export const GET_AD = "GET_AD";
 export const ADS_LOADING = "ADS_LOADING";
 export const ADD_AD = "ADD_AD";
 export const DELETE_AD = "DELETE_ADD";
+
+export const GET_ALL_USERS = "GET_ALL_USERS";
+export const DELETE_USER = "DELETE_USER";
+export const ADMIN_LOADING = "ADMIN_LOADING";

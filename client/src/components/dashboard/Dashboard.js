@@ -86,6 +86,17 @@ class Dashboard extends Component {
           </Link>
         </div>
       );
+    } else if (user.type == "admin") {
+      dashboardContent = (
+        <div>
+          <p>
+            Welcome {user.name}! ({user.type})
+          </p>
+          <Link to="/admin/users" className="m-1 btn btn-info">
+            Manage users
+          </Link>
+        </div>
+      );
     }
 
     return (

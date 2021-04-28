@@ -3,11 +3,11 @@ import { Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-const EmployerRoute = ({ component: Component, auth, ...rest }) => (
+const AdminRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      auth.isAuthenticated === true && auth.user.type == "employer" ? (
+      auth.isAuthenticated === true && auth.user.type == "admin" ? (
         <Component {...props} />
       ) : (
         <Redirect to="/login" />
@@ -16,7 +16,7 @@ const EmployerRoute = ({ component: Component, auth, ...rest }) => (
   />
 );
 
-EmployerRoute.propTypes = {
+AdminRoute.propTypes = {
   auth: PropTypes.object.isRequired,
 };
 
@@ -24,4 +24,4 @@ const mapStateToProps = state => ({
   auth: state.auth,
 });
 
-export default withRouter(connect(mapStateToProps)(EmployerRoute));
+export default withRouter(connect(mapStateToProps)(AdminRoute));

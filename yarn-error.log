@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/bin/yarn add redux-devtools-extension
+  /usr/local/bin/node /usr/bin/yarn add express-flash
 
 PATH: 
-  /home/sako/Android/Sdk/emulator:/home/sako/Android/Sdk/tools/bin:/home/sako/Android/Sdk/tools:/home/sako/Android/Sdk/platform-tools:/usr/share/android-studio/bin:/home/sako/.local/bin/statusbar:/home/sako/.local/bin/:/home/sako/Android/Sdk/emulator:/home/sako/Android/Sdk/tools/bin:/home/sako/Android/Sdk/tools:/home/sako/Android/Sdk/platform-tools:/usr/share/android-studio/bin:/home/sako/.local/bin/statusbar:/home/sako/.local/bin/:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/lib/psql13/bin:/opt/texlive/2020/bin/x86_64-linux
+  /home/sako/Android/Sdk/emulator:/home/sako/Android/Sdk/tools/bin:/home/sako/Android/Sdk/tools:/home/sako/Android/Sdk/platform-tools:/usr/share/android-studio/bin:/home/sako/.local/bin/statusbar:/home/sako/.local/bin/:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/lib/psql13/bin:/opt/texlive/2020/bin/x86_64-linux
 
 Yarn version: 
   1.22.10
