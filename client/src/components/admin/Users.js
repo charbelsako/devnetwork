@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllUsers, deleteUser } from "../../actions/adminActions";
+import Spinner from "../common/Spinner";
 
 export class Users extends Component {
   constructor(props) {
@@ -15,15 +16,22 @@ export class Users extends Component {
   };
 
   render() {
-    return this.props.admin.users.map(user => (
-      <div className="m-2 p-3 border">
-        <p>{user.name}</p>
-        <p>({user.type})</p>
-        <button className="btn btn-danger" onClick={this.deleteUser(user._id)}>
-          Delete User
-        </button>
+    if (this.props.admin.loading) {
+      return <Spinner />;
+    }
+    return (
+      <div className="container">
+        {this.props.admin.users.map(user => (
+          <div className="m-2 p-3 border">
+            <p>{user.name}</p>
+            <p>({user.type})</p>
+            <button className="btn btn-danger" onClick={this.deleteUser(user._id)}>
+              Delete User
+            </button>
+          </div>
+        ))}
       </div>
-    ));
+    );
   }
 }
 

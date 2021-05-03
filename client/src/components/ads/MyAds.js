@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUserAds, deleteAd } from "../../actions/adActions";
+import Spinner from "../common/Spinner";
 
 export class MyAds extends Component {
   constructor(props) {
@@ -16,20 +17,24 @@ export class MyAds extends Component {
 
   render() {
     if (this.props.ads.loading) {
-      return <p>Loading</p>;
+      return <Spinner />;
     } else {
       return (
-        <div>
-          {this.props.ads.ads.map((ad, index) => (
-            <div className="m-5" key={index}>
-              <h3>{ad.title}</h3>
-              <p>{ad.description}</p>
-              <p className="text-grey">Salary: {ad.salary ? ad.salary : "N/A"}</p>
-              <button onClick={this.delete(ad._id)} className="btn btn-danger">
-                Delete Ad
-              </button>
-            </div>
-          ))}
+        <div className="container">
+          {this.props.ads.ads.length == 0 ? (
+            <h1>You haven't created any ads</h1>
+          ) : (
+            this.props.ads.ads.map((ad, index) => (
+              <div className="m-5" key={index}>
+                <h3>{ad.title}</h3>
+                <p>{ad.description}</p>
+                <p className="text-grey">Salary: {ad.salary ? ad.salary : "N/A"}</p>
+                <button onClick={this.delete(ad._id)} className="btn btn-danger">
+                  Delete Ad
+                </button>
+              </div>
+            ))
+          )}
         </div>
       );
     }

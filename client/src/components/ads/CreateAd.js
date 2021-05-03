@@ -31,41 +31,43 @@ export class CreateAd extends Component {
 
   render() {
     return (
-      <form onSubmit={this.createAd}>
-        <TextFieldGroup
-          label="Title"
-          required={true}
-          placeholder="title"
-          value={this.state.title}
-          onChange={this.onChange}
-          name="title"
-          type="text"
-          error={this.props.errors.title}
-        />
+      <div className="container">
+        <form onSubmit={this.createAd}>
+          <TextFieldGroup
+            label="Title"
+            required={true}
+            placeholder="title"
+            value={this.state.title}
+            onChange={this.onChange}
+            name="title"
+            type="text"
+            error={this.props.errors.title}
+          />
 
-        <TextAreaFieldGroup
-          placeholder="Description"
-          required={true}
-          label="Description"
-          value={this.state.description}
-          info="Please provide contact information so that people can contact you."
-          onChange={this.onChange}
-          name="description"
-          error={this.props.errors.description}
-        />
+          <TextAreaFieldGroup
+            placeholder="Description"
+            required={true}
+            label="Description"
+            value={this.state.description}
+            info="Please provide contact information so that people can contact you."
+            onChange={this.onChange}
+            name="description"
+            error={this.props.errors.description}
+          />
 
-        <TextFieldGroup
-          label="Salary"
-          placeholder="salary"
-          value={this.state.salary}
-          onChange={this.onChange}
-          name="salary"
-          type="number"
-          // error={this..errors.salary}
-        />
-        <input type="submit" value="Create Ad" className="m-1" />
-        {this.state.success && <div className="alert alert-success">Added Advertisement</div>}
-      </form>
+          <TextFieldGroup
+            label="Salary"
+            placeholder="salary"
+            value={this.state.salary}
+            onChange={this.onChange}
+            name="salary"
+            type="number"
+            // error={this..errors.salary}
+          />
+          <input type="submit" value="Create Ad" className="m-1" />
+          {this.state.success && <div className="alert alert-success">Added Advertisement</div>}
+        </form>
+      </div>
     );
   }
 }

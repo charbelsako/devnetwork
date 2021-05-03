@@ -27,7 +27,7 @@ export const addAd = ad => async dispatch => {
   try {
     // call the add api
     const Ad = await axios.post("/api/ads", ad);
-    dispatch({ type: ADD_AD, payload: ad.data });
+    dispatch({ type: ADD_AD, payload: Ad.data });
   } catch (e) {
     dispatch({ type: GET_ERRORS, payload: e.response.data });
     console.log(e);

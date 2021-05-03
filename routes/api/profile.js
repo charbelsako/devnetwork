@@ -20,7 +20,7 @@ const validateEducationInput = require('../../validation/education')
 */
 router.get('/test', (req, res) => res.json({ msg: 'Profile Works' }))
 
-/* 
+/*
   @route  /api/profile
   @method GET
   @desc   get current user's profile
@@ -45,13 +45,12 @@ router.get(
   }
 )
 
-/* 
+/*
   @route  /api/profile/all
   @method GET
   @desc   Get all profiles
   @access Public
 */
-
 router.get('/all', (req, res) => {
   const errors = {}
 
@@ -68,7 +67,7 @@ router.get('/all', (req, res) => {
     .catch(err => res.status(400).json({ noprofile: 'There are no profiles' }))
 })
 
-/* 
+/*
   @route  /api/profile/handle/:handle
   @method GET
   @desc   Get the profile by handle
@@ -91,7 +90,7 @@ router.get('/handle/:handle', (req, res) => {
     )
 })
 
-/* 
+/*
   @route  /api/profile/user/user_id
   @method GET
   @desc   Get the profile by ID
@@ -114,7 +113,7 @@ router.get('/user/:user_id', (req, res) => {
     )
 })
 
-/* 
+/*
   @route  /api/profile
   @method POST
   @desc   Create or Edit user profile
@@ -187,7 +186,7 @@ router.post(
   }
 )
 
-/* 
+/*
   @route  /api/profile/experience
   @method POST
   @desc   Add experience to profile
@@ -224,7 +223,7 @@ router.post(
   }
 )
 
-/* 
+/*
   @route  /api/profile/education
   @method POST
   @desc   Add education to profile
@@ -262,7 +261,7 @@ router.post(
   }
 )
 
-/* 
+/*
   @route  /api/profile/experience/:exp_id
   @method DELETE
   @desc   Delete experience from profile
@@ -288,7 +287,7 @@ router.delete(
   }
 )
 
-/* 
+/*
   @route  /api/profile/education/:edu_id
   @method DELETE
   @desc   Delete education from profile
@@ -315,7 +314,7 @@ router.delete(
   }
 )
 
-/* 
+/*
   @route  /api/profile
   @method DELETE
   @desc   Delete user and profile
