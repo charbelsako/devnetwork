@@ -63,28 +63,25 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
-            <Route exact path="/" component={Landing} />
-            <div className="container">
-              <Switch>
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/profiles" component={Profiles} />
-                <Route path="/profile/:handle" component={Profile} />
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute exact path="/create-profile" component={CreateProfile} />
-                <PrivateRoute exact path="/edit-profile" component={EditProfile} />
-                <PrivateRoute exact path="/add-experience" component={AddExperience} />
-                <PrivateRoute exact path="/add-education" component={AddEducation} />
-                <PrivateRoute exact path="/feed" component={Posts} />
-                <PrivateRoute exact path="/post/:id" component={Post} />
-                {/* TODO: the component will be changed */}
-                <EmployerRoute exact path="/myads" component={MyAds} />
-                <EmployerRoute exact path="/ads" component={Ads} />
-                <EmployerRoute exact path="/create-ad" component={CreateAd} />
-                <AdminRoute exact path="/admin/users" component={Users} />
-                <Route component={NotFound} />
-              </Switch>
-            </div>
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/profiles" component={Profiles} />
+              <Route exact path="/profile/:handle" component={Profile} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+              <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+              <PrivateRoute exact path="/add-experience" component={AddExperience} />
+              <PrivateRoute exact path="/add-education" component={AddEducation} />
+              <PrivateRoute exact path="/feed" component={Posts} />
+              <PrivateRoute exact path="/post/:id" component={Post} />
+              <EmployerRoute exact path="/myads" component={MyAds} />
+              <EmployerRoute exact path="/ads" component={Ads} />
+              <EmployerRoute exact path="/create-ad" component={CreateAd} />
+              <AdminRoute exact path="/admin/users" component={Users} />
+              <Route component={NotFound} />
+            </Switch>
             <Footer />
           </div>
         </Router>
