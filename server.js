@@ -10,6 +10,7 @@ const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
 const ads = require("./routes/api/ads");
 const admin = require("./routes/api/admin");
+const comment = require("./routes/api/comments");
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use("/api/profile", profile);
 app.use("/api/posts", posts);
 app.use("/api/ads", ads);
 app.use("/api/admin", admin);
+app.use("/api/comment/", comment);
 
 // For heroku
 // Serve static assets if in production

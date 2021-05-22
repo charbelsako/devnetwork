@@ -1,9 +1,17 @@
 const router = require("express").Router();
 const passport = require("passport");
 
+const { isAdmin } = require("../../middleware/middleware");
+
 const User = require("../../models/User");
 
-router.get("/users", passport.authenticate("jwt", { session: false }), async (req, res) => {
+/*
+  @route /api/admin/users
+  @method GET
+  @desc return all users in the database
+  @access private (admin)
+*/
+router.get("/users", passport.authenticate("jwt", { session: false }), isAdmin, async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -12,7 +20,13 @@ router.get("/users", passport.authenticate("jwt", { session: false }), async (re
   }
 });
 
-router.delete("/users/:id", passport.authenticate("jwt", { session: false }), async (req, res) => {
+/*
+  @route /api/admin/users/:id
+  @method DELETE
+  @desc Delete a user from the database
+  @access private (admin)
+*/
+router.delete("/users/:id", passport.authenticate("jwt", { session: false }), isAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     const user = await User.findOneAndRemove({ _id: id });

@@ -23,3 +23,8 @@ export const DELETE_AD = "DELETE_ADD";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const DELETE_USER = "DELETE_USER";
 export const ADMIN_LOADING = "ADMIN_LOADING";
+
+export const GET_USER_COMMENTS = "GET_USER_COMMENTS";
+export const COMMENTS_LOADING = "COMMENTS_LOADING";
+export const ADD_COMMENT = "ADD_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";

@@ -21,6 +21,7 @@ import Ads from "./components/ads/Ads";
 import MyAds from "./components/ads/MyAds";
 import CreateAd from "./components/ads/CreateAd";
 import Users from "./components/admin/Users";
+import Comments from "./components/instructor/Comments";
 // Redux
 import { Provider } from "react-redux";
 // Redux store
@@ -80,6 +81,7 @@ class App extends Component {
               <EmployerRoute exact path="/ads" component={Ads} />
               <EmployerRoute exact path="/create-ad" component={CreateAd} />
               <AdminRoute exact path="/admin/users" component={Users} />
+              <Route exact path="/:handle/comments" component={Comments} />
               <Route component={NotFound} />
             </Switch>
             <Footer />

@@ -5,14 +5,14 @@ const User = require("../../models/User");
 const Ad = require("../../models/Ad");
 
 const validateAdInput = require("../../validation/advertisement");
+const { isEmployer } = require("../../middleware/middleware");
 /*
   @route /api/ads/
   @method POST
   @desc create a new job advertisement
   @access private
 */
-// TODO: Create a local strategy for jwt to check if the user is an employer
-router.post("/", passport.authenticate("jwt", { session: false }), async (req, res) => {
+router.post("/", passport.authenticate("jwt", { session: false }), isEmployer, async (req, res) => {
   const { errors, isValid } = validateAdInput(req.body);
 
   if (!isValid) {
@@ -38,7 +38,7 @@ router.post("/", passport.authenticate("jwt", { session: false }), async (req, r
   @route /api/ads
   @method GET
   @desc return all ads
-  @access private (for now)
+  @access private (employer)
 */
 router.get("/", passport.authenticate("jwt", { session: false }), async (req, res) => {
   // Get all ads
@@ -53,12 +53,12 @@ router.get("/", passport.authenticate("jwt", { session: false }), async (req, re
 });
 
 /*
-  @route /api/users/ads
-  @method GET
-  @desc return all ads
+  @route /api/ads/:id
+  @method DELETE
+  @desc Delete an Ad
   @access private
 */
-router.delete("/:id", passport.authenticate("jwt", { session: false }), async (req, res) => {
+router.delete("/:id", passport.authenticate("jwt", { session: false }), isEmployer, async (req, res) => {
   // Get all ads
   try {
     // find the ad with the id
@@ -76,7 +76,13 @@ router.delete("/:id", passport.authenticate("jwt", { session: false }), async (r
   }
 });
 
-router.get("/myads", passport.authenticate("jwt", { session: false }), async (req, res) => {
+/*
+  @route /api/ads/myads
+  @method GET
+  @desc Get user ads
+  @access private (employer)
+*/
+router.get("/myads", passport.authenticate("jwt", { session: false }), isEmployer, async (req, res) => {
   try {
     //get all ads by user
     const ads = await Ad.find({ user: req.user.id });

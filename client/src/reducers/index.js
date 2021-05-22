@@ -5,6 +5,7 @@ import profileReducer from "./profileReducer";
 import postReducer from "./postReducer";
 import adReducer from "./adReducer";
 import adminReducer from "./adminReducer";
+import commentReducer from "./commentReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   post: postReducer,
   ads: adReducer,
   admin: adminReducer,
+  comments: commentReducer,
 });

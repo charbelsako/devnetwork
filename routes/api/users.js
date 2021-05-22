@@ -122,12 +122,13 @@ router.post("/login", (req, res) => {
 });
 
 /*
-  @route  /api/users/test
+  @route  /api/users/current
   @method GET
   @desc   Return current user
   @access Private
 */
 router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
+  console.log(req.user);
   res.json({ id: req.user.id, name: req.user.name, email: req.user.email });
 });
 
