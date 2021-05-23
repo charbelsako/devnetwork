@@ -1,5 +1,5 @@
 function isAdmin(req, res, next) {
-  if (req.isAuthenticated() && req.user.type === "admin") {
+  if (req.user.type === "admin") {
     next(null, true);
   } else {
     res.status(401).json({ msg: "User is not an admin" });
@@ -7,7 +7,7 @@ function isAdmin(req, res, next) {
 }
 
 function isEmployer(req, res, next) {
-  if (req.isAuthenticated() && req.user.type === "employer") {
+  if (req.user.type === "employer") {
     next();
   } else {
     res.status(401).json({ msg: "User is not an employer" });
@@ -15,7 +15,7 @@ function isEmployer(req, res, next) {
 }
 
 function isInstructor(req, res, next) {
-  if (req.isAuthenticated() && req.user.type === "instructor") {
+  if (req.user.type === "instructor") {
     next();
   } else {
     res.status(401).json({ msg: "User is not an instructor" });
@@ -23,7 +23,7 @@ function isInstructor(req, res, next) {
 }
 
 function isStudent(req, res, next) {
-  if (req.isAuthenticated() && req.user.type === "student") {
+  if (req.user.type === "student") {
     next();
   } else {
     res.status(401).json({ msg: "User is not a student" });

@@ -4,6 +4,7 @@ const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
+const isAuthenticated = require("../../middleware/auth");
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -94,7 +95,7 @@ router.post("/login", (req, res) => {
   User.findOne({ email }).then(user => {
     // Check for user
     if (!user) {
-      errors.email = "User not found";
+      errors.password = "Invalid Credentials";
       return res.status(404).json(errors);
     }
 
@@ -114,7 +115,7 @@ router.post("/login", (req, res) => {
           res.json({ success: true, token: `Bearer ${token}` });
         });
       } else {
-        errors.password = "Incorrect Password";
+        errors.password = "Invalid Credentials";
         return res.status(400).json(errors);
       }
     });
@@ -127,7 +128,8 @@ router.post("/login", (req, res) => {
   @desc   Return current user
   @access Private
 */
-router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
+// passport.authenticate("jwt", { session: false })
+router.get("/current", isAuthenticated, (req, res) => {
   console.log(req.user);
   res.json({ id: req.user.id, name: req.user.name, email: req.user.email });
 });

@@ -5,6 +5,7 @@ const User = require("../../models/User");
 const Profile = require("../../models/Profile");
 const passport = require("passport");
 const { isInstructor } = require("../../middleware/middleware");
+const isAuthenticated = require("../../middleware/auth");
 
 const validateCommentInput = require("../../validation/comment");
 /*
@@ -32,7 +33,7 @@ router.get("/:handle", async (req, res) => {
   @desc Add a comment
   @access private (instructors)
 */
-router.post("/", passport.authenticate("jwt", { session: false }), isInstructor, async (req, res) => {
+router.post("/", isAuthenticated, isInstructor, async (req, res) => {
   // Run validation
   const { errors, isValid } = validateCommentInput(req.body);
 
@@ -63,7 +64,7 @@ router.post("/", passport.authenticate("jwt", { session: false }), isInstructor,
   @desc Delete a comment
   @access private
 */
-router.delete("/:id", passport.authenticate("jwt", { session: false }), isInstructor, async (req, res) => {
+router.delete("/:id", isAuthenticated, isInstructor, async (req, res) => {
   try {
     const id = req.params.id;
     const comment = await Comment.findOneAndRemove({ _id: id });

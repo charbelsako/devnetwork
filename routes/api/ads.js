@@ -6,13 +6,14 @@ const Ad = require("../../models/Ad");
 
 const validateAdInput = require("../../validation/advertisement");
 const { isEmployer } = require("../../middleware/middleware");
+const isAuthenticated = require("../../middleware/auth");
 /*
   @route /api/ads/
   @method POST
   @desc create a new job advertisement
   @access private
 */
-router.post("/", passport.authenticate("jwt", { session: false }), isEmployer, async (req, res) => {
+router.post("/", isAuthenticated, isEmployer, async (req, res) => {
   const { errors, isValid } = validateAdInput(req.body);
 
   if (!isValid) {
@@ -40,7 +41,7 @@ router.post("/", passport.authenticate("jwt", { session: false }), isEmployer, a
   @desc return all ads
   @access private (employer)
 */
-router.get("/", passport.authenticate("jwt", { session: false }), async (req, res) => {
+router.get("/", isAuthenticated, async (req, res) => {
   // Get all ads
   try {
     const ads = await Ads.find().populate("user", ["name"]);
@@ -58,7 +59,7 @@ router.get("/", passport.authenticate("jwt", { session: false }), async (req, re
   @desc Delete an Ad
   @access private
 */
-router.delete("/:id", passport.authenticate("jwt", { session: false }), isEmployer, async (req, res) => {
+router.delete("/:id", isAuthenticated, isEmployer, async (req, res) => {
   // Get all ads
   try {
     // find the ad with the id
@@ -82,7 +83,7 @@ router.delete("/:id", passport.authenticate("jwt", { session: false }), isEmploy
   @desc Get user ads
   @access private (employer)
 */
-router.get("/myads", passport.authenticate("jwt", { session: false }), isEmployer, async (req, res) => {
+router.get("/myads", isAuthenticated, isEmployer, async (req, res) => {
   try {
     //get all ads by user
     const ads = await Ad.find({ user: req.user.id });

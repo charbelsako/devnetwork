@@ -14,6 +14,9 @@ const comment = require("./routes/api/comments");
 
 const app = express();
 
+//middleware
+const isAuthenticated = require("./config/passport");
+
 // app.use(function (req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -33,10 +36,10 @@ mongoose
   .catch(err => console.log(err));
 
 // Passport Middleware
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
 // Passport Config
-require("./config/passport.js")(passport);
+// require("./config/passport.js")(passport);
 
 //Use routes
 app.use("/api/users", users);
