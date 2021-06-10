@@ -3,7 +3,6 @@ const router = express.Router();
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const passport = require("passport");
 const isAuthenticated = require("../../middleware/auth");
 
 // Load input validation
@@ -128,7 +127,6 @@ router.post("/login", (req, res) => {
   @desc   Return current user
   @access Private
 */
-// passport.authenticate("jwt", { session: false })
 router.get("/current", isAuthenticated, (req, res) => {
   console.log(req.user);
   res.json({ id: req.user.id, name: req.user.name, email: req.user.email });
