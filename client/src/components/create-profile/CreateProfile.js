@@ -1,14 +1,15 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { createProfile } from '../../actions/profileActions'
-import TextFieldGroup from '../common/TextFieldGroup'
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
-import SelectListGroup from '../common/SelectListGroup'
-import InputGroup from '../common/InputGroup'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { createProfile } from "../../actions/profileActions"
+import TextFieldGroup from "../common/TextFieldGroup"
+import TextAreaFieldGroup from "../common/TextAreaFieldGroup"
+import SelectListGroup from "../common/SelectListGroup"
+import InputGroup from "../common/InputGroup"
 
 class CreateProfile extends Component {
   static propTypes = {
+    // ? Is this prop ever used?
     profile: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
   }
@@ -17,19 +18,20 @@ class CreateProfile extends Component {
     super(props)
     this.state = {
       displaySocialInputs: false,
-      handle: '',
-      company: '',
-      website: '',
-      location: '',
-      status: '',
-      skills: '',
-      githubusername: '',
-      bio: '',
-      twitter: '',
-      youtube: '',
-      instagram: '',
-      facebook: '',
-      linkedin: '',
+      handle: "",
+      company: "",
+      website: "",
+      location: "",
+      status: "",
+      skills: "",
+      githubusername: "",
+      bio: "",
+      phone: "",
+      twitter: "",
+      youtube: "",
+      instagram: "",
+      facebook: "",
+      linkedin: "",
       errors: {},
     }
   }
@@ -40,9 +42,9 @@ class CreateProfile extends Component {
     }
   }
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value })
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value })
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault()
 
     const profileData = {
@@ -54,6 +56,7 @@ class CreateProfile extends Component {
       skills: this.state.skills,
       githubusername: this.state.githubusername,
       bio: this.state.bio,
+      phone: this.state.phone,
       twitter: this.state.twitter,
       youtube: this.state.youtube,
       instagram: this.state.instagram,
@@ -120,17 +123,17 @@ class CreateProfile extends Component {
     // Select options for status
     const options = [
       {
-        label: '* Select Professional status',
-        value: '0',
+        label: "* Select Professional status",
+        value: "0",
       },
-      { label: 'Developer', value: 'Developer' },
-      { value: 'Junior Developer', label: 'Junior Developer' },
-      { label: 'Senior Developer', value: 'Senior Developer' },
-      { label: 'Intern', value: 'Intern' },
-      { label: 'Manager', value: 'Manager' },
-      { label: 'Student', value: 'Student' },
-      { label: 'Instructor', value: 'Instructor' },
-      { label: 'Other', value: 'Other' },
+      { label: "Developer", value: "Developer" },
+      { value: "Junior Developer", label: "Junior Developer" },
+      { label: "Senior Developer", value: "Senior Developer" },
+      { label: "Intern", value: "Intern" },
+      { label: "Manager", value: "Manager" },
+      { label: "Student", value: "Student" },
+      { label: "Instructor", value: "Instructor" },
+      { label: "Other", value: "Other" },
     ]
 
     return (
@@ -217,11 +220,20 @@ class CreateProfile extends Component {
                   info="Tell us about yourself"
                 />
 
+                <TextFieldGroup
+                  placeholder="* Phone Number"
+                  name="phone"
+                  value={this.state.phone}
+                  onChange={this.onChange}
+                  error={errors.phone}
+                  info="Your phone number that will be shared with employers"
+                />
+
                 <div className="mb-3">
                   <button
                     type="button"
                     onClick={() => {
-                      this.setState(prevState => ({
+                      this.setState((prevState) => ({
                         displaySocialInputs: !prevState.displaySocialInputs,
                       }))
                     }}
@@ -246,13 +258,10 @@ class CreateProfile extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   profile: state.profile,
   errors: state.errors,
 })
 
 // No withRouter check PrivateRoute.js
-export default connect(
-  mapStateToProps,
-  { createProfile }
-)(CreateProfile)
+export default connect(mapStateToProps, { createProfile })(CreateProfile)
