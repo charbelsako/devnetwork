@@ -6,7 +6,7 @@ import {
   GET_ERRORS,
   GET_APPLIED_JOBS,
   APPLY_TO_JOB,
-  // APPLICATIONS_LOADING,
+  GET_USER_APPLIED_JOBS,
 } from "./types"
 import axios from "axios"
 
@@ -79,7 +79,24 @@ export const getJobApplications = () => async (dispatch) => {
   try {
     // call the api
     const result = await axios.get(`/api/ads/applied`)
-    dispatch({ type: GET_APPLIED_JOBS, payload: result.data.appliedJobsIds })
+    dispatch({
+      type: GET_APPLIED_JOBS,
+      payload: result.data.appliedJobsIds,
+    })
+  } catch (e) {
+    console.error(e)
+    console.error(e.message)
+  }
+}
+
+// action to get all applied jobs
+export const getUserJobApplications = () => async (dispatch) => {
+  //? loading
+  dispatch({ type: ADS_LOADING })
+  try {
+    // call the api
+    const result = await axios.get(`/api/ads/myapplications`)
+    dispatch({ type: GET_USER_APPLIED_JOBS, payload: result.data.appliedJobs })
   } catch (e) {
     console.error(e)
     console.error(e.message)

@@ -21,6 +21,7 @@ export const ADD_AD = "ADD_AD"
 export const DELETE_AD = "DELETE_ADD"
 export const APPLY_TO_JOB = "APPLY_TO_JOB"
 export const GET_APPLIED_JOBS = "GET_APPLIED_JOBS"
+export const GET_USER_APPLIED_JOBS = "GET_USER_APPLIED_JOBS"
 // export const APPLICATIONS_LOADING = "APPLICATIONS_LOADING"
 
 export const GET_ALL_USERS = "GET_ALL_USERS"

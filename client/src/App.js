@@ -20,6 +20,7 @@ import Profile from "./components/profile/Profile"
 import Ads from "./components/ads/Ads"
 import MyAds from "./components/ads/MyAds"
 import CreateAd from "./components/ads/CreateAd"
+import MyApplications from "./components/ads/MyApplications"
 import Users from "./components/admin/Users"
 import Comments from "./components/instructor/Comments"
 // Redux
@@ -35,7 +36,10 @@ import Posts from "./components/posts/Posts"
 import Post from "./components/post/Post"
 import EmployerRoute from "./components/common/EmployerRoute"
 import AdminRoute from "./components/common/AdminRoute"
+import InstructorRoute from "./components/common/InstructorRoute"
 import EmployerStudentRoute from "./components/common/EmployerStudentRoute"
+import CreateInstructorProfile from "./components/instructor/CreateInstructorProfile"
+import EditInstructorProfile from "./components/instructor/EditInstructorProfile"
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -95,10 +99,23 @@ class App extends Component {
               <PrivateRoute exact path="/feed" component={Posts} />
               <PrivateRoute exact path="/post/:id" component={Post} />
               <EmployerRoute exact path="/myads" component={MyAds} />
-              {/* <EmployerRoute exact path="/ads" component={Ads} />
-              <PrivateRoute exact path="/ads" component={Ads} /> */}
+              <PrivateRoute
+                exact
+                path="/myapplications"
+                component={MyApplications}
+              />
               <EmployerStudentRoute exact path="/ads" component={Ads} />
               <EmployerRoute exact path="/create-ad" component={CreateAd} />
+              <InstructorRoute
+                exact
+                path="/create-instructor-profile"
+                component={CreateInstructorProfile}
+              />
+              <InstructorRoute
+                exact
+                path="/edit-instructor-profile"
+                component={EditInstructorProfile}
+              />
               <AdminRoute exact path="/admin/users" component={Users} />
               <Route exact path="/:handle/comments" component={Comments} />
               <Route component={NotFound} />

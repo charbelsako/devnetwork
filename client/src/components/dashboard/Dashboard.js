@@ -38,6 +38,9 @@ class Dashboard extends Component {
           <p className="info">
             As an instructor you can comment on student profiles
           </p>
+          <Link to="/create-instructor-profile" className="btn btn-lg btn-info">
+            Create Profile
+          </Link>
         </div>
       )
     } else if (user.type == "student") {

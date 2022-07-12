@@ -24,13 +24,21 @@ class Navbar extends Component {
 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          {user.type === "student" && (
-            <Link className="nav-link" to="/ads">
-              Job Offerings
-            </Link>
-          )}
-        </li>
+        {user.type === "student" && (
+          <>
+            <li className="nav-item">
+              <Link className="nav-link" to="/myapplications">
+                My Applications
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/ads">
+                Job Offerings
+              </Link>
+            </li>
+          </>
+        )}
+
         <li className="nav-item">
           <Link className="nav-link" to="/dashboard">
             Dashboard

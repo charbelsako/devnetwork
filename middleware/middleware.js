@@ -1,33 +1,47 @@
 function isAdmin(req, res, next) {
   if (req.user.type === "admin") {
-    next(null, true);
+    next(null, true)
   } else {
-    res.status(401).json({ msg: "User is not an admin" });
+    res.status(401).json({ msg: "User is not an admin" })
   }
 }
 
 function isEmployer(req, res, next) {
   if (req.user.type === "employer") {
-    next();
+    next()
   } else {
-    res.status(401).json({ msg: "User is not an employer" });
+    res.status(401).json({ msg: "User is not an employer" })
   }
 }
 
 function isInstructor(req, res, next) {
   if (req.user.type === "instructor") {
-    next();
+    next()
   } else {
-    res.status(401).json({ msg: "User is not an instructor" });
+    res.status(401).json({ msg: "User is not an instructor" })
   }
 }
 
 function isStudent(req, res, next) {
   if (req.user.type === "student") {
-    next();
+    next()
   } else {
-    res.status(401).json({ msg: "User is not a student" });
+    res.status(401).json({ msg: "User is not a student" })
   }
 }
 
-module.exports = { isAdmin, isInstructor, isEmployer, isStudent };
+function isStudentOrEmployer(req, res, next) {
+  if (req.user.type === "student" || req.user.type === "employer") {
+    next()
+  } else {
+    res.status(401).json({ msg: "User is neither a student nor an employer" })
+  }
+}
+
+module.exports = {
+  isAdmin,
+  isInstructor,
+  isEmployer,
+  isStudent,
+  isStudentOrEmployer,
+}

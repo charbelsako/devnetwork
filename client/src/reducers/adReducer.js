@@ -5,6 +5,7 @@ import {
   ADD_AD,
   GET_APPLIED_JOBS,
   APPLY_TO_JOB,
+  GET_USER_APPLIED_JOBS,
   // APPLICATIONS_LOADING,
 } from "../actions/types"
 
@@ -13,6 +14,7 @@ const initialState = {
   loading: false,
   appliedAds: [],
   applicationsLoading: false,
+  userApplications: [],
 }
 
 export default function (state = initialState, action) {
@@ -47,7 +49,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         appliedAds: action.payload,
-        applicationsLoading: false,
+        loading: false,
+      }
+    case GET_USER_APPLIED_JOBS:
+      return {
+        ...state,
+        userApplications: action.payload,
+        loading: false,
       }
     // case APPLICATIONS_LOADING:
     //   return {

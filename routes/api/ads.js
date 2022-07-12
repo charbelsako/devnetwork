@@ -6,7 +6,11 @@ const Ad = require("../../models/Ad")
 const Application = require("../../models/Application")
 
 const validateAdInput = require("../../validation/advertisement")
-const { isEmployer, isStudent } = require("../../middleware/middleware")
+const {
+  isEmployer,
+  isStudent,
+  isStudentOrEmployer,
+} = require("../../middleware/middleware")
 const isAuthenticated = require("../../middleware/auth")
 
 /*
@@ -43,7 +47,7 @@ router.post("/", isAuthenticated, isEmployer, async (req, res) => {
   @desc return all ads
   @access private (employer)
 */
-router.get("/", isAuthenticated, async (req, res) => {
+router.get("/", isAuthenticated, isStudentOrEmployer, async (req, res) => {
   // Get all ads
   try {
     const ads = await Ads.find().populate("user", ["name"])
@@ -123,7 +127,7 @@ router.post("/apply/:id", isAuthenticated, isStudent, async (req, res) => {
 })
 
 /*
-  @route /api/ads/applied/:id
+  @route /api/ads/applied
   @method GET
   @desc Get all applied jobs for a user
   @access private
@@ -135,6 +139,26 @@ router.get("/applied", isAuthenticated, isStudent, async (req, res) => {
     )
     const appliedJobsIds = appliedJobs.map((value) => value.offering)
     res.json({ appliedJobsIds })
+  } catch (e) {
+    console.log(e)
+    console.log(e.message)
+    res.json({ error: "An error has occurred." }).status(500)
+  }
+})
+
+/*
+  @route /api/ads/myapplications
+  @method GET
+  @desc Get all applied jobs for a user
+  @access private
+*/
+router.get("/myapplications", isAuthenticated, isStudent, async (req, res) => {
+  try {
+    const appliedJobs = await Application.find({ user: req.user.id }).populate({
+      path: "offering",
+      populate: { path: "user" },
+    })
+    res.json({ appliedJobs })
   } catch (e) {
     console.log(e)
     console.log(e.message)

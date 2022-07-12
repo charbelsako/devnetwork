@@ -15,11 +15,10 @@ const InstructorProfileSchema = new Schema({
       yearsOfExperience: {
         type: String,
         required: true,
-        default: 0,
       },
     },
   ],
-  phone: { type: String, required: true },
+  phone: { type: String, required: false },
   date: {
     type: Date,
     default: Date.now,
