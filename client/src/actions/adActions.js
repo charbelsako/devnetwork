@@ -1,48 +1,87 @@
-import { GET_ADS, ADD_AD, DELETE_AD, ADS_LOADING, GET_ERRORS } from "./types";
-import axios from "axios";
+import {
+  GET_ADS,
+  ADD_AD,
+  DELETE_AD,
+  ADS_LOADING,
+  GET_ERRORS,
+  GET_APPLIED_JOBS,
+  APPLY_TO_JOB,
+  // APPLICATIONS_LOADING,
+} from "./types"
+import axios from "axios"
 
-export const getAllAds = () => async dispatch => {
-  dispatch({ type: ADS_LOADING, payload: null });
+export const getAllAds = () => async (dispatch) => {
+  dispatch({ type: ADS_LOADING, payload: null })
   try {
     // call the api
-    const ads = await axios.get("/api/ads");
-    dispatch({ type: GET_ADS, payload: ads.data });
+    const ads = await axios.get("/api/ads")
+    dispatch({ type: GET_ADS, payload: ads.data })
   } catch (e) {
     // dispatch({ type: GET_ERRORS, payload: e.response.data });
   }
-};
+}
 
-export const deleteAd = id => async dispatch => {
-  console.log("deleted");
+export const deleteAd = (id) => async (dispatch) => {
+  console.log("deleted")
   try {
-    const response = await axios.delete("/api/ads/" + id);
-    console.log(response.data);
-    dispatch({ type: DELETE_AD, payload: response.data.id });
+    const response = await axios.delete("/api/ads/" + id)
+    console.log(response.data)
+    dispatch({ type: DELETE_AD, payload: response.data.id })
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
-};
+}
 
-export const addAd = ad => async dispatch => {
+export const addAd = (ad) => async (dispatch) => {
   try {
     // call the add api
-    const Ad = await axios.post("/api/ads", ad);
-    dispatch({ type: ADD_AD, payload: Ad.data });
+    const Ad = await axios.post("/api/ads", ad)
+    dispatch({ type: ADD_AD, payload: Ad.data })
   } catch (e) {
-    dispatch({ type: GET_ERRORS, payload: e.response.data });
-    console.log(e);
+    dispatch({ type: GET_ERRORS, payload: e.response.data })
+    console.log(e)
   }
-};
+}
 
-export const getUserAds = () => async dispatch => {
+export const getUserAds = () => async (dispatch) => {
   // loading
-  dispatch({ type: ADS_LOADING });
+  dispatch({ type: ADS_LOADING })
   try {
     // call the api
-    const ads = await axios.get("/api/ads/myads");
-    dispatch({ type: GET_ADS, payload: ads.data });
+    const ads = await axios.get("/api/ads/myads")
+    dispatch({ type: GET_ADS, payload: ads.data })
   } catch (e) {
-    console.log(e);
-    console.log(e.message);
+    console.log(e)
+    console.log(e.message)
   }
-};
+}
+
+// action to apply to job
+export const applyToJob = (jobId, userId) => async (dispatch) => {
+  //? loading
+  try {
+    // call the api
+    const result = await axios.post(`/api/ads/apply/${jobId}`, {
+      jobId,
+      userId,
+    })
+    dispatch({ type: APPLY_TO_JOB, payload: jobId })
+  } catch (e) {
+    console.error(e)
+    console.error(e.message)
+  }
+}
+
+// action to get all applied jobs
+export const getJobApplications = () => async (dispatch) => {
+  //? loading
+  // dispatch({ type: APPLICATIONS_LOADING })
+  try {
+    // call the api
+    const result = await axios.get(`/api/ads/applied`)
+    dispatch({ type: GET_APPLIED_JOBS, payload: result.data.appliedJobsIds })
+  } catch (e) {
+    console.error(e)
+    console.error(e.message)
+  }
+}

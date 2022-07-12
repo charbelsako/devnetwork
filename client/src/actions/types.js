@@ -1,30 +1,33 @@
-export const CLEAR_ERRORS = "CLEAR_ERRORS";
-export const GET_ERRORS = "GET_ERRORS";
-export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const CLEAR_ERRORS = "CLEAR_ERRORS"
+export const GET_ERRORS = "GET_ERRORS"
+export const SET_CURRENT_USER = "SET_CURRENT_USER"
 
-export const GET_PROFILE = "GET_PROFILE";
-export const PROFILE_LOADING = "PROFILE_LOADING";
-export const PROFILE_NOT_FOUND = "PROFILE_NOT_FOUND";
-export const CLEAR_CURRENT_PROFILE = "CLEAR_CURRENT_PROFILE";
-export const GET_PROFILES = "GET_PROFILES";
+export const GET_PROFILE = "GET_PROFILE"
+export const PROFILE_LOADING = "PROFILE_LOADING"
+export const PROFILE_NOT_FOUND = "PROFILE_NOT_FOUND"
+export const CLEAR_CURRENT_PROFILE = "CLEAR_CURRENT_PROFILE"
+export const GET_PROFILES = "GET_PROFILES"
 
-export const GET_POSTS = "GET_POSTS";
-export const GET_POST = "GET_POST";
-export const POST_LOADING = "POST_LOADING";
-export const ADD_POST = "ADD_POST";
-export const DELETE_POST = "DELETE_POST";
+export const GET_POSTS = "GET_POSTS"
+export const GET_POST = "GET_POST"
+export const POST_LOADING = "POST_LOADING"
+export const ADD_POST = "ADD_POST"
+export const DELETE_POST = "DELETE_POST"
 
-export const GET_ADS = "GET_ADS";
-export const GET_AD = "GET_AD";
-export const ADS_LOADING = "ADS_LOADING";
-export const ADD_AD = "ADD_AD";
-export const DELETE_AD = "DELETE_ADD";
+export const GET_ADS = "GET_ADS"
+export const GET_AD = "GET_AD"
+export const ADS_LOADING = "ADS_LOADING"
+export const ADD_AD = "ADD_AD"
+export const DELETE_AD = "DELETE_ADD"
+export const APPLY_TO_JOB = "APPLY_TO_JOB"
+export const GET_APPLIED_JOBS = "GET_APPLIED_JOBS"
+// export const APPLICATIONS_LOADING = "APPLICATIONS_LOADING"
 
-export const GET_ALL_USERS = "GET_ALL_USERS";
-export const DELETE_USER = "DELETE_USER";
-export const ADMIN_LOADING = "ADMIN_LOADING";
+export const GET_ALL_USERS = "GET_ALL_USERS"
+export const DELETE_USER = "DELETE_USER"
+export const ADMIN_LOADING = "ADMIN_LOADING"
 
-export const GET_USER_COMMENTS = "GET_USER_COMMENTS";
-export const COMMENTS_LOADING = "COMMENTS_LOADING";
-export const ADD_COMMENT = "ADD_COMMENT";
-export const DELETE_COMMENT = "DELETE_COMMENT";
+export const GET_USER_COMMENTS = "GET_USER_COMMENTS"
+export const COMMENTS_LOADING = "COMMENTS_LOADING"
+export const ADD_COMMENT = "ADD_COMMENT"
+export const DELETE_COMMENT = "DELETE_COMMENT"

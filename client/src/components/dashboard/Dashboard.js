@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
-import Spinner from "../common/Spinner";
-import { Link } from "react-router-dom";
-import ProfileActions from "./ProfileActions";
-import Experience from "./Experience";
-import Education from "./Education";
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { getCurrentProfile, deleteAccount } from "../../actions/profileActions"
+import Spinner from "../common/Spinner"
+import { Link } from "react-router-dom"
+import ProfileActions from "./ProfileActions"
+import Experience from "./Experience"
+import Education from "./Education"
 
 class Dashboard extends Component {
   static propTypes = {
@@ -14,40 +14,43 @@ class Dashboard extends Component {
     getCurrentProfile: PropTypes.func.isRequired,
     profile: PropTypes.object.isRequired,
     deleteAccount: PropTypes.func.isRequired,
-  };
-
-  componentDidMount() {
-    this.props.getCurrentProfile();
   }
 
-  onDeleteClick = e => {
-    this.props.deleteAccount();
-  };
+  componentDidMount() {
+    this.props.getCurrentProfile()
+  }
+
+  onDeleteClick = (e) => {
+    this.props.deleteAccount()
+  }
 
   render() {
-    const { user } = this.props.auth;
-    const { profile, loading } = this.props.profile;
+    const { user } = this.props.auth
+    const { profile, loading } = this.props.profile
     // const { {profile: { profile, loading } }, {auth: { user } } } = this.props
-    let dashboardContent = "";
+    let dashboardContent = ""
 
     if (user.type == "instructor") {
       dashboardContent = (
         <div>
           <p>{user.type}</p>
           <p>Welcome {user.name}!</p>
-          <p className="info">As an instructor you can comment on student profiles</p>
+          <p className="info">
+            As an instructor you can comment on student profiles
+          </p>
         </div>
-      );
+      )
     } else if (user.type == "student") {
       if (profile === null || loading) {
-        dashboardContent = <Spinner />;
+        dashboardContent = <Spinner />
       } else {
         // Check if logged in user has profile data
         if (Object.keys(profile).length > 0) {
           dashboardContent = (
             <div>
               <p className="lead text-muted">
-                Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+                Welcome{" "}
+                <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
               </p>
               <ProfileActions />
               <Experience experience={profile.experience} />
@@ -58,7 +61,7 @@ class Dashboard extends Component {
                 </button>
               </div>
             </div>
-          );
+          )
         } else {
           // User has no profile
           dashboardContent = (
@@ -69,7 +72,7 @@ class Dashboard extends Component {
                 Create Profile
               </Link>
             </div>
-          );
+          )
         }
       }
     } else if (user.type == "employer") {
@@ -85,7 +88,7 @@ class Dashboard extends Component {
             My Ads
           </Link>
         </div>
-      );
+      )
     } else if (user.type == "admin") {
       dashboardContent = (
         <div>
@@ -96,7 +99,7 @@ class Dashboard extends Component {
             Manage users
           </Link>
         </div>
-      );
+      )
     }
 
     return (
@@ -110,14 +113,16 @@ class Dashboard extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   profile: state.profile,
   auth: state.auth,
-});
+})
 
 // No withRouter check PrivateRoute.js
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
+  Dashboard
+)

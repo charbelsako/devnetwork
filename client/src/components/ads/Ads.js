@@ -1,17 +1,27 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getAllAds } from "../../actions/adActions";
-import Spinner from "../common/Spinner";
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import {
+  getAllAds,
+  applyToJob,
+  getJobApplications,
+} from "../../actions/adActions"
+import Spinner from "../common/Spinner"
 
 export class Ads extends Component {
   constructor(props) {
-    super(props);
-    this.props.getAllAds();
+    super(props)
+    this.props.getAllAds()
+    this.props.getJobApplications()
+  }
+
+  sendApplication = async (jobId, userId) => {
+    // ? call the action (APPLY_TO_JOB)
+    this.props.applyToJob(jobId, userId)
   }
 
   render() {
     if (this.props.ads.loading) {
-      return <Spinner />;
+      return <Spinner />
     } else {
       return (
         <div className="container">
@@ -23,22 +33,39 @@ export class Ads extends Component {
                 <h3>{ad.title}</h3>
                 <p>{ad.description}</p>
                 <p>Posted by: {ad.user.name}</p>
-                <p className="text-grey">Salary: {ad.salary ? ad.salary : "N/A"}</p>
+                <p className="text-grey">
+                  Salary: {ad.salary ? ad.salary : "N/A"}
+                </p>
+                {this.props.ads.appliedAds.indexOf(ad._id) != -1 ? (
+                  "Applied"
+                ) : (
+                  <button
+                    className="btn btn-lg btn-secondary"
+                    onClick={() =>
+                      this.sendApplication(ad._id, this.props.auth.user.id)
+                    }
+                  >
+                    Apply
+                  </button>
+                )}
               </div>
             ))
           )}
         </div>
-      );
+      )
     }
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   ads: state.ads,
-});
+  auth: state.auth,
+})
 
 const mapDispatchToProps = {
   getAllAds,
-};
+  applyToJob,
+  getJobApplications,
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ads);
+export default connect(mapStateToProps, mapDispatchToProps)(Ads)
