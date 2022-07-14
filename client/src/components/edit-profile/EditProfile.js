@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { createProfile, getCurrentProfile } from '../../actions/profileActions'
-import TextFieldGroup from '../common/TextFieldGroup'
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup'
-import SelectListGroup from '../common/SelectListGroup'
-import InputGroup from '../common/InputGroup'
-import isEmpty from '../../validation/is-empty'
-import { Link } from 'react-router-dom'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { createProfile, getCurrentProfile } from "../../actions/profileActions"
+import TextFieldGroup from "../common/TextFieldGroup"
+import TextAreaFieldGroup from "../common/TextAreaFieldGroup"
+import SelectListGroup from "../common/SelectListGroup"
+import InputGroup from "../common/InputGroup"
+import isEmpty from "../../validation/is-empty"
+import { Link } from "react-router-dom"
 
 class CreateProfile extends Component {
   static propTypes = {
@@ -19,19 +19,19 @@ class CreateProfile extends Component {
     super(props)
     this.state = {
       displaySocialInputs: false,
-      handle: '',
-      company: '',
-      website: '',
-      location: '',
-      status: '',
-      skills: '',
-      githubusername: '',
-      bio: '',
-      twitter: '',
-      youtube: '',
-      instagram: '',
-      facebook: '',
-      linkedin: '',
+      handle: "",
+      company: "",
+      website: "",
+      location: "",
+      status: "",
+      skills: "",
+      githubusername: "",
+      bio: "",
+      twitter: "",
+      youtube: "",
+      instagram: "",
+      facebook: "",
+      linkedin: "",
       errors: {},
     }
   }
@@ -48,32 +48,32 @@ class CreateProfile extends Component {
     if (nextProps.profile.profile) {
       const profile = nextProps.profile.profile
 
-      const skillsCSV = profile.skills.join(',')
+      const skillsCSV = profile.skills.join(",")
 
       // If profile field doesnt exist, make empty string
-      profile.company = !isEmpty(profile.company) ? profile.company : ''
-      profile.website = !isEmpty(profile.website) ? profile.website : ''
-      profile.location = !isEmpty(profile.location) ? profile.location : ''
+      profile.company = !isEmpty(profile.company) ? profile.company : ""
+      profile.website = !isEmpty(profile.website) ? profile.website : ""
+      profile.location = !isEmpty(profile.location) ? profile.location : ""
       profile.githubusername = !isEmpty(profile.githubusername)
         ? profile.githubusername
-        : ''
-      profile.bio = !isEmpty(profile.bio) ? profile.bio : ''
+        : ""
+      profile.bio = !isEmpty(profile.bio) ? profile.bio : ""
       profile.social = !isEmpty(profile.social) ? profile.social : {}
       profile.twitter = !isEmpty(profile.social.twitter)
         ? profile.social.twitter
-        : ''
+        : ""
       profile.facebook = !isEmpty(profile.social.facebook)
         ? profile.social.facebook
-        : ''
+        : ""
       profile.linkedin = !isEmpty(profile.social.linkedin)
         ? profile.social.linkedin
-        : ''
+        : ""
       profile.youtube = !isEmpty(profile.social.youtube)
         ? profile.social.youtube
-        : ''
+        : ""
       profile.instagram = !isEmpty(profile.social.instagram)
         ? profile.social.instagram
-        : ''
+        : ""
 
       // Set component fields state
       this.setState({
@@ -93,9 +93,9 @@ class CreateProfile extends Component {
     }
   }
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value })
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value })
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault()
 
     const profileData = {
@@ -174,17 +174,17 @@ class CreateProfile extends Component {
     // Select options for status
     const options = [
       {
-        label: '* Select Professional status',
-        value: '0',
+        label: "* Select Professional status",
+        value: "0",
       },
-      { label: 'Developer', value: 'Developer' },
-      { value: 'Junior Developer', label: 'Junior Developer' },
-      { label: 'Senior Developer', value: 'Senior Developer' },
-      { label: 'Intern', value: 'Intern' },
-      { label: 'Manager', value: 'Manager' },
-      { label: 'Student', value: 'Student' },
-      { label: 'Instructor', value: 'Instructor' },
-      { label: 'Other', value: 'Other' },
+      { label: "Developer", value: "Developer" },
+      { value: "Junior Developer", label: "Junior Developer" },
+      { label: "Senior Developer", value: "Senior Developer" },
+      { label: "Intern", value: "Intern" },
+      { label: "Manager", value: "Manager" },
+      { label: "Student", value: "Student" },
+      { label: "Instructor", value: "Instructor" },
+      { label: "Other", value: "Other" },
     ]
 
     return (
@@ -275,7 +275,7 @@ class CreateProfile extends Component {
                   <button
                     type="button"
                     onClick={() => {
-                      this.setState(prevState => ({
+                      this.setState((prevState) => ({
                         displaySocialInputs: !prevState.displaySocialInputs,
                       }))
                     }}
@@ -300,15 +300,14 @@ class CreateProfile extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   profile: state.profile,
   errors: state.errors,
-  createProfile: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
+  // createProfile: PropTypes.func.isRequired,
+  // getCurrentProfile: PropTypes.func.isRequired,
 })
 
 // No withRouter check PrivateRoute.js
-export default connect(
-  mapStateToProps,
-  { createProfile, getCurrentProfile }
-)(CreateProfile)
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  CreateProfile
+)
