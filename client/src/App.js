@@ -54,6 +54,7 @@ if (localStorage.jwtToken) {
   // Check for expired token
   const currentTime = Date.now() / 1000
   if (decoded.exp < currentTime) {
+    console.log("Expired token")
     store.dispatch(logoutUser())
     // Clear current profile
     // TODO
