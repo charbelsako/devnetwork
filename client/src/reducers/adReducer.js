@@ -3,9 +3,10 @@ import {
   ADS_LOADING,
   DELETE_AD,
   ADD_AD,
-  GET_APPLIED_JOBS,
+  GET_JOB_APPLICATIONS,
   APPLY_TO_JOB,
   GET_USER_APPLIED_JOBS,
+  GET_APPLIED_JOBS,
   // APPLICATIONS_LOADING,
 } from "../actions/types"
 
@@ -15,6 +16,7 @@ const initialState = {
   appliedAds: [],
   applicationsLoading: false,
   userApplications: [],
+  appliedUsers: [],
 }
 
 export default function (state = initialState, action) {
@@ -45,13 +47,19 @@ export default function (state = initialState, action) {
         ...state,
         appliedAds: [...state.appliedAds, action.payload],
       }
-    case GET_APPLIED_JOBS:
+    case GET_JOB_APPLICATIONS:
+      return {
+        ...state,
+        appliedUsers: action.payload,
+        loading: false,
+      }
+    case GET_USER_APPLIED_JOBS:
       return {
         ...state,
         appliedAds: action.payload,
         loading: false,
       }
-    case GET_USER_APPLIED_JOBS:
+    case GET_APPLIED_JOBS:
       return {
         ...state,
         userApplications: action.payload,

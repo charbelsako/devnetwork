@@ -27,6 +27,7 @@ class CreateProfile extends Component {
       skills: "",
       githubusername: "",
       bio: "",
+      phone: "",
       twitter: "",
       youtube: "",
       instagram: "",
@@ -85,6 +86,7 @@ class CreateProfile extends Component {
         skills: skillsCSV,
         githubusername: profile.githubusername,
         bio: profile.bio,
+        phone: profile.phone,
         twitter: profile.twitter,
         facebook: profile.facebook,
         linkedin: profile.linkedin,
@@ -112,6 +114,7 @@ class CreateProfile extends Component {
       instagram: this.state.instagram,
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
+      phone: this.state.phone,
     }
 
     this.props.createProfile(profileData, this.props.history)
@@ -269,6 +272,15 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                   error={errors.bio}
                   info="Tell us about yourself"
+                />
+
+                <TextFieldGroup
+                  placeholder="* Phone Number"
+                  name="phone"
+                  value={this.state.phone}
+                  onChange={this.onChange}
+                  error={errors.phone}
+                  info="Your phone number that will be shared with employers"
                 />
 
                 <div className="mb-3">

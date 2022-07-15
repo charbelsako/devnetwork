@@ -40,6 +40,7 @@ import InstructorRoute from "./components/common/InstructorRoute"
 import EmployerStudentRoute from "./components/common/EmployerStudentRoute"
 import CreateInstructorProfile from "./components/instructor/CreateInstructorProfile"
 import EditInstructorProfile from "./components/instructor/EditInstructorProfile"
+import Applications from "./components/ads/Applications"
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -106,6 +107,11 @@ class App extends Component {
               />
               <EmployerStudentRoute exact path="/ads" component={Ads} />
               <EmployerRoute exact path="/create-ad" component={CreateAd} />
+              <EmployerRoute
+                exact
+                path="/applications/:id"
+                component={Applications}
+              />
               <InstructorRoute
                 exact
                 path="/create-instructor-profile"
