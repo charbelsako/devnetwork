@@ -4,9 +4,10 @@ import {
   DELETE_AD,
   ADS_LOADING,
   GET_ERRORS,
-  GET_APPLIED_JOBS,
+  GET_JOB_APPLICATIONS,
   APPLY_TO_JOB,
   GET_USER_APPLIED_JOBS,
+  GET_APPLIED_JOBS,
 } from "./types"
 import axios from "axios"
 
@@ -69,19 +70,20 @@ export const applyToJob = (jobId, userId) => async (dispatch) => {
   } catch (e) {
     console.error(e)
     console.error(e.message)
+    dispatch({ type: GET_ERRORS, payload: e.response.data })
   }
 }
 
 // action to get all applied jobs
-export const getJobApplications = () => async (dispatch) => {
+export const getJobApplications = (id) => async (dispatch) => {
   //? loading
   // dispatch({ type: APPLICATIONS_LOADING })
   try {
     // call the api
-    const result = await axios.get(`/api/ads/applied`)
+    const result = await axios.get(`/api/ads/applications/${id}`)
     dispatch({
-      type: GET_APPLIED_JOBS,
-      payload: result.data.appliedJobsIds,
+      type: GET_JOB_APPLICATIONS,
+      payload: result.data.appliedUsers,
     })
   } catch (e) {
     console.error(e)
@@ -95,8 +97,22 @@ export const getUserJobApplications = () => async (dispatch) => {
   dispatch({ type: ADS_LOADING })
   try {
     // call the api
-    const result = await axios.get(`/api/ads/myapplications`)
+    const result = await axios.get(`/api/ads/myapplications?type=id`)
     dispatch({ type: GET_USER_APPLIED_JOBS, payload: result.data.appliedJobs })
+  } catch (e) {
+    console.error(e)
+    console.error(e.message)
+  }
+}
+
+// action to get all applied jobs
+export const getAppliedJobs = () => async (dispatch) => {
+  //? loading
+  dispatch({ type: ADS_LOADING })
+  try {
+    // call the api
+    const result = await axios.get(`/api/ads/myapplications`)
+    dispatch({ type: GET_APPLIED_JOBS, payload: result.data.appliedJobs })
   } catch (e) {
     console.error(e)
     console.error(e.message)

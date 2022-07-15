@@ -1,7 +1,9 @@
 const router = require("express").Router()
 // const passport = require("passport")
+const mongoose = require("mongoose")
 
 const User = require("../../models/User")
+const Profile = require("../../models/Profile")
 const Ad = require("../../models/Ad")
 const Application = require("../../models/Application")
 
@@ -111,40 +113,70 @@ router.post("/apply/:id", isAuthenticated, isStudent, async (req, res) => {
   // Should receive two things, Advertisement id, User id
 
   try {
+    // ! check if user has a Profile
+    const userProfile = await Profile.findOne({ user: req.body.userId })
+    if (!userProfile) {
+      throw new Error("Please set up your profile first")
+    }
     const application = new Application({
+      // ? could have used req.params.id
       offering: req.body.jobId,
       // ? Could have used req.user.id
       user: req.body.userId,
     })
     const app = await application.save()
     console.log(app)
-    res.json({ id: app._id }).status(200)
+    res.status(200).json({ id: app._id })
   } catch (e) {
     console.log(e)
     console.log(e.message)
-    res.json({ error: "an error has occurred" }).status(500)
+    res.status(500).json({ error: e.message })
   }
 })
 
 /*
-  @route /api/ads/applied
+  @route /api/ads/applications/:id
   @method GET
-  @desc Get all applied jobs for a user
-  @access private
+  @desc Get all applied users for a job
+  @access private employer route
 */
-router.get("/applied", isAuthenticated, isStudent, async (req, res) => {
-  try {
-    const appliedJobs = await Application.find({ user: req.user.id }).select(
-      "offering"
-    )
-    const appliedJobsIds = appliedJobs.map((value) => value.offering)
-    res.json({ appliedJobsIds })
-  } catch (e) {
-    console.log(e)
-    console.log(e.message)
-    res.json({ error: "An error has occurred." }).status(500)
+router.get(
+  "/applications/:id",
+  isAuthenticated,
+  isEmployer,
+  async (req, res) => {
+    try {
+      var appliedUsers = await Application.find({
+        offering: req.params.id,
+      }).populate("user", ["name", "gravatar", "email"])
+      console.log("applied users:")
+      console.log(appliedUsers)
+      const appliedUsersIds = appliedUsers.map((row) => row.user._id.toString())
+
+      const userPhone = await Profile.find({
+        user: {
+          $in: appliedUsersIds,
+        },
+      }).select(["phone", "handle"])
+
+      appliedUsers = appliedUsers.map((user, index) => {
+        return {
+          id: user.user._id,
+          name: user.user.name,
+          email: user.user.email,
+          phone: userPhone[index].phone,
+          handle: userPhone[index].handle,
+        }
+      })
+
+      res.json({ appliedUsers })
+    } catch (e) {
+      console.log(e)
+      console.log(e.message)
+      res.status(500).json({ error: "An error has occurred." })
+    }
   }
-})
+)
 
 /*
   @route /api/ads/myapplications
@@ -154,10 +186,15 @@ router.get("/applied", isAuthenticated, isStudent, async (req, res) => {
 */
 router.get("/myapplications", isAuthenticated, isStudent, async (req, res) => {
   try {
-    const appliedJobs = await Application.find({ user: req.user.id }).populate({
+    let appliedJobs = await Application.find({ user: req.user.id }).populate({
       path: "offering",
       populate: { path: "user" },
     })
+    console.log("type is")
+    console.log(req.query.type)
+    if (req.query.type === "id") {
+      appliedJobs = appliedJobs.map((row) => row.offering._id)
+    }
     res.json({ appliedJobs })
   } catch (e) {
     console.log(e)

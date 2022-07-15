@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import {
   getAllAds,
   applyToJob,
-  getJobApplications,
+  getUserJobApplications,
 } from "../../actions/adActions"
 import Spinner from "../common/Spinner"
 
@@ -11,7 +11,7 @@ export class Ads extends Component {
   constructor(props) {
     super(props)
     this.props.getAllAds()
-    this.props.getJobApplications()
+    this.props.getUserJobApplications()
   }
 
   sendApplication = async (jobId, userId) => {
@@ -25,6 +25,11 @@ export class Ads extends Component {
     } else {
       return (
         <div className="container">
+          {this.props.errors.error && (
+            <p className="m-auto text-danger text-center alert alert-danger">
+              {this.props.errors.error}
+            </p>
+          )}
           {this.props.ads.ads.length == 0 ? (
             <h1>There are no job postings</h1>
           ) : (
@@ -60,12 +65,13 @@ export class Ads extends Component {
 const mapStateToProps = (state) => ({
   ads: state.ads,
   auth: state.auth,
+  errors: state.errors,
 })
 
 const mapDispatchToProps = {
   getAllAds,
   applyToJob,
-  getJobApplications,
+  getUserJobApplications,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ads)
