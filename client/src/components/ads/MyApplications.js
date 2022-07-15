@@ -1,12 +1,12 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { getUserJobApplications } from "../../actions/adActions"
+import { getAppliedJobs } from "../../actions/adActions"
 import Spinner from "../common/Spinner"
 
 export class MyApplications extends Component {
   constructor(props) {
     super(props)
-    this.props.getUserJobApplications()
+    this.props.getAppliedJobs()
   }
 
   // UNSAFE_componentWillMount() {}
@@ -42,6 +42,6 @@ const mapStateToProps = (state) => ({
   ads: state.ads,
 })
 
-const mapDispatchToProps = { getUserJobApplications }
+const mapDispatchToProps = { getAppliedJobs }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyApplications)
