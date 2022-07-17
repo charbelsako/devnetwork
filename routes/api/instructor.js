@@ -8,7 +8,7 @@ const Instructor = require("../../models/InstructorProfile")
 // Load User Model
 const User = require("../../models/User")
 
-const { isInstructor } = require("../../middleware/middleware")
+const { isInstructor, isStudent } = require("../../middleware/middleware")
 const isAuthenticated = require("../../middleware/auth")
 
 // Load Validation
@@ -196,6 +196,21 @@ router.delete("/profile", isAuthenticated, isInstructor, (req, res) => {
   Instructor.findOneAndRemove({ user: req.user.id })
     .then(() => res.json({ success: true }))
     .catch((err) => res.json(err).status(500))
+})
+
+// * make profile private/public
+router.post("/search", isAuthenticated, isStudent, async (req, res) => {
+  try {
+    console.log(req.body.skills)
+    const result = await Instructor.find({
+      "skills.skill": req.body.skills,
+    }).populate("user", ["name"])
+    console.log(result)
+    res.status(200).json(result)
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({ error: "an error occurred" })
+  }
 })
 
 // ? Possible feature

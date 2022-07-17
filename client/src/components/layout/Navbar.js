@@ -27,6 +27,11 @@ class Navbar extends Component {
         {user.type === "student" && (
           <>
             <li className="nav-item">
+              <Link className="nav-link" to="/learn">
+                Learning
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" to="/myapplications">
                 My Applications
               </Link>

@@ -23,6 +23,7 @@ import CreateAd from "./components/ads/CreateAd"
 import MyApplications from "./components/ads/MyApplications"
 import Users from "./components/admin/Users"
 import Comments from "./components/instructor/Comments"
+import SearchInstructor from "./components/instructor/SearchInstructor"
 // Redux
 import { Provider } from "react-redux"
 // Redux store
@@ -101,6 +102,7 @@ class App extends Component {
               <PrivateRoute exact path="/feed" component={Posts} />
               <PrivateRoute exact path="/post/:id" component={Post} />
               <EmployerRoute exact path="/myads" component={MyAds} />
+              <PrivateRoute exact path="/learn" component={SearchInstructor} />
               <PrivateRoute
                 exact
                 path="/myapplications"
